@@ -17,11 +17,12 @@ const client = new MongoClient(uri, {
 
 client.connect((err) => {
   const productsCollection = client.db("surprisebd").collection("products");
+  const ordersCollection = client.db("surprisebd").collection("orders");
 
   //insert all products data
   app.post("/addProduct", (req, res) => {
     const products = req.body;
-    productsCollection.insertMany(products).then((result) => {
+    productsCollection.insertOne(products).then((result) => {
       console.log(result.insertedCount);
       res.send(result.insertedCount);
     });
@@ -41,6 +42,22 @@ client.connect((err) => {
       .toArray((err, documents) => {
         res.send(documents[0]);
       });
+  });
+
+  app.post("/productsByKeys", (req, res) => {
+    const productKeys = req.body;
+    productsCollection
+      .find({ key: { $in: productKeys } })
+      .toArray((err, documents) => {
+        res.send(documents);
+      });
+  });
+
+  app.post("/addOrder", (req, res) => {
+    const order = req.body;
+    ordersCollection.insertOne(order).then((result) => {
+      res.send(result.insertedCount > 0);
+    });
   });
 
   //end bracket
