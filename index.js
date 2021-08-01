@@ -18,6 +18,7 @@ const client = new MongoClient(uri, {
 client.connect((err) => {
   const productsCollection = client.db("surprisebd").collection("products");
 
+  //insert all products data
   app.post("/addProduct", (req, res) => {
     const products = req.body;
     productsCollection.insertMany(products).then((result) => {
@@ -25,6 +26,24 @@ client.connect((err) => {
       res.send(result.insertedCount);
     });
   });
+
+  //get products data from database
+  app.get("/products", (req, res) => {
+    productsCollection.find({}).toArray((err, documents) => {
+      res.send(documents);
+    });
+  });
+
+  //get product data from database
+  app.get("/product/:key", (req, res) => {
+    productsCollection
+      .find({ key: req.params.key })
+      .toArray((err, documents) => {
+        res.send(documents[0]);
+      });
+  });
+
+  //end bracket
 });
 
 app.listen(process.env.PORT || port);
