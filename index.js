@@ -22,6 +22,9 @@ const client = new MongoClient(uri, {
 client.connect((err) => {
   const productsCollection = client.db("surprisebd").collection("products");
   const ordersCollection = client.db("surprisebd").collection("orders");
+  const appointmentCollection = client
+    .db("surprisebd")
+    .collection("appointments");
 
   //insert all products data
   app.post("/addProduct", (req, res) => {
@@ -63,6 +66,13 @@ client.connect((err) => {
   app.post("/addOrder", (req, res) => {
     const order = req.body;
     ordersCollection.insertOne(order).then((result) => {
+      res.send(result.insertedCount > 0);
+    });
+  });
+
+  app.post("/addAppointment", (req, res) => {
+    const appointment = req.body;
+    appointmentCollection.insertOne(appointment).then((result) => {
       res.send(result.insertedCount > 0);
     });
   });
