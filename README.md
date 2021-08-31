@@ -23,20 +23,21 @@ Work To Be Done:
 Done:
 1.  Home Page
 2.  Product page
-3.  Custimize page user interface
+3.  Customize page user interface
 4.  Delivery Page
 5.  Server connection with product database
 6.  User order page connection with server
 7.  Sign up
 8.  Login
-9.  Forget passowrd system integrated with mail
-10. Login or signup with google added
+9.  Forget password system integrated with mail
+10. Login or sign up with google added
 11. Review order page
 12. React routing added
 13. Heroku server hosting done
-14. Intigrated with MongoDB database
+14. Integrated with MongoDB database
 15. Payment system.
 16. UI improvement
 17. Search implementation
 18. Customize page with server implementation
-19. Admin page
+19. Resort Booking page
+20. Admin page
