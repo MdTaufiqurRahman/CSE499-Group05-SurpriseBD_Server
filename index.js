@@ -3,6 +3,9 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
 const { MongoClient } = require("mongodb");
+
+//Here we connected our database 
+
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.oipru.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
 const app = express();
@@ -27,6 +30,7 @@ client.connect((err) => {
     .collection("appointments");
 
   //insert all products data
+
   app.post("/addProduct", (req, res) => {
     const products = req.body;
     productsCollection.insertOne(products).then((result) => {
@@ -53,6 +57,9 @@ client.connect((err) => {
         res.send(documents[0]);
       });
   });
+
+  //get products data from database
+
 
   app.post("/productsByKeys", (req, res) => {
     const productKeys = req.body;
